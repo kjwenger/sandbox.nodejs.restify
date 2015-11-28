@@ -1,0 +1,67 @@
+###global JSON,module,require,console,process###
+
+###*
+Root of all RESTful Web Service scopes for locations CRUDE.
+
+@class rest
+@date November 28, 2015
+@author <a href="mailto:kjwenger@yahoo.com">Klaus Wenger</a>
+###
+
+debug           = require("debug")("rest_locations")
+constants       = require "../constants"
+location        = require "../model/location"
+restify         = require "restify"
+restifyMongoose = require "restify-mongoose"
+mongoose        = require "mongoose"
+mongo           = require("mongodb").MongoClient
+module.exports  =
+    mock: (Location) ->
+        url = "mongodb://localhost:27017/test"
+        err, db = mongo.connect! url
+        collection = db.collection('locations');
+        err, results = collection.deleteMany! {}
+        redHatAmphitheater = new Location(
+            countryCode: "USA"
+            regionCode : "NC"
+            postalCode : "27601"
+            city       : "Raleigh"
+            street     : "S McDowell St"
+            number     : "500"
+        )
+        err = redHatAmphitheater.save!
+        debug "register() err=#{err}"
+        redHatHeadquarters = new Location(
+            countryCode: "USA",
+            regionCode : "NC",
+            postalCode : "27601",
+            city       : "Raleigh",
+            street     : "E Davie Street",
+            number     : "100"
+        )
+        err = redHatHeadquarters.save!
+        debug "register() err=#{err}"
+    ###*
+    Registers all handlers for this scope and all sub-scopes for the supported HTTP methods.
+    The given server needs to allow for instance:
+    <code>server.get("/scope", function(req, res, next) { res.write("something"); })</code>.
+    @member rest_locations
+    @param {Object} server Server or application framework that supports (for given HTTP methods and scopes) the registration of handlers.
+    @param {Object} path Path passed down from parent handler to be prepended.
+    ###
+    register: (server, path) ->
+        path = path or ""
+
+        Schema = new mongoose.Schema(location.schema)
+        Location = mongoose.model("locations", Schema)
+        locations = restifyMongoose(Location)
+
+        this.mock(Location)
+
+        ###register all handlers for all scopes and supported HTTP methods###
+        server.get   path + "/locations",     locations.query()
+        server.get   path + "/locations/:id", locations.detail()
+        server.post  path + "/locations",     locations.insert()
+        server.patch path + "/locations/:id", locations.update()
+        server.del   path + "/locations/:id", locations.remove()
+        return this

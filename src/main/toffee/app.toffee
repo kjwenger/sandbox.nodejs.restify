@@ -1,0 +1,67 @@
+###global JSON,module,require,console,process###
+
+###*
+Application rooting in Restify allowing for further servers/services to be added.
+
+@class app
+@module module
+@module restify
+@see <a href="http://nodejs.org/api/modules.html">Node.JS Modules</a>
+@date March 5, 2014
+@author <a href="mailto:jgupta_ext@implen.com">Jatin Gupta</a>
+@author <a href="mailto:kwenger@implen.com">Klaus Wenger</a>
+###
+
+debug     = require("debug")("app")
+constants = require "./constants"  # Require all reusable constants for consistency
+utils     = require "./utils"      # Require all reusable code for consistency
+restify   = require "restify"      # require the RESTful Web Services framework
+rest      = require "./rest/rest"  # require the root of all RESTful Web Services
+
+###*
+@member app
+@property {Boolean} [debug=false]
+@example node app/app.js debug=true
+@see utils.isDebug()
+
+Flag enabling or disabling tracing information to the console. This flag
+can be set by passing the command line arguments debug=true into
+the node executable at start time.
+###
+module.debug = utils.isDebug()
+
+# instantiate the server framework and initialize it
+server = restify.createServer name: 'sandbox.nodejs.restify'
+server.use restify.fullResponse()
+server.use restify.gzipResponse() # compress response
+server.use(restify.acceptParser(server.acceptable))
+server.use restify.queryParser()  # parse request query properties out of URL query string
+server.use restify.bodyParser()   # parse JSON out of data of HTTP request
+server.use restify.CORS()         # cross-origin resource sharing
+server.on "MethodNotAllowed", (req, res) ->
+    debug "server.on('MethodNotAllowed') req.method=#{req.method}"
+    if req.method.toUpperCase() is "OPTIONS"
+        allowHeaders =
+            ["Accept", "Accept-Version", "Content-Type", "Api-Version"]
+        if res.methods.indexOf("OPTIONS") is -1 then res.methods.push "OPTIONS"
+        res.header "Access-Control-Allow-Credentials", true
+        res.header "Access-Control-Allow-Headers", allowHeaders.join(", ")
+        res.header "Access-Control-Allow-Methods", res.methods.join(", ")
+        res.header "Access-Control-Allow-Origin", req.headers.origin
+        return res.send(204);
+    return res.send new restify.MethodNotAllowedError()
+
+# register RESTful Web Services
+rest.register server               # pass server to sub-server and RESTful Web Services for scope handler registration
+
+# allow shutting down the server remotely
+server.post "/shutdown", () ->
+    debug 'server.post("/shutdown").callback()'
+    process.exit 0
+
+# start dispatch loop
+try
+    server.listen constants.PORT, () ->
+        debug "server.listen(constants.PORT).callback() listening=http://*:#{constants.PORT}"
+catch error
+    console.log error

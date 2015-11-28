@@ -1,0 +1,18 @@
+[
+  {
+    "countryCode": "USA",
+    "regionCode" : "NC",
+    "postalCode" : "27601",
+    "city"       : "Raleigh",
+    "street"     : "S McDowell St",
+    "number"     : "500"
+  },
+  {
+    "countryCode": "USA",
+    "regionCode" : "NC",
+    "postalCode" : "27601",
+    "city"       : "Raleigh",
+    "street"     : "E Davie Street",
+    "number"     : "100"
+  }
+]

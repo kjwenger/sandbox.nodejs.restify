@@ -1,0 +1,62 @@
+###global JSON,module,require,console,process###
+
+###*
+Root of all RESTful Web Service scopes bootstrapping all sub-scopes.
+
+@class rest
+@requires rest_locations
+@date November 28, 2015
+@author <a href="mailto:kjwenger@yahoo.com">Klaus Wenger</a>
+###
+
+###*
+Flag enabling or disabling tracing information to the console.
+
+@member rest
+@property {Boolean} [debug=module.parent.debug]
+###
+traces    = require "debug"
+debug     = require("debug")("rest")
+mongoose  = require "mongoose"
+constants = require "../constants"
+locations = require "./rest_locations"
+
+module.exports =
+    ###*
+    Registers all handlers for this scope and all sub-scopes
+    (photometers, spectrometer, ...) for the supported HTTP methods.
+    The given server needs to allow for instance:
+    <code>server.get("/scope", function(req, res, next) { res.write("something"); })</code>.
+    @member rest
+    @param {Object} server Server or application framework that supports (for given HTTP methods and scopes) the registration of handlers.
+    ###
+    register: (server) ->
+        mongoose.connect('mongodb://localhost/test');
+
+        if traces.enabled "rest"
+            server.use (req, res, next) ->
+                debug "START >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+                json = if req.body then JSON.stringify(req.body) else constants.STRING_BLANK
+                debug "START #{req.method} #{req.url} #{json and json.substr(0, 80)}"
+                if req.method is "COPY" or req.method is "MOVE" then debug "      #{JSON.stringify(req.headers)}}"
+                result = next()
+                debug "STOP  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+                return result
+
+        ###register all handlers for all scopes and supported HTTP methods###
+        server.get "/rest",      this.getAll
+        server.get "/rest.json", this.getAll
+
+        ###register all handlers for all sub-scopes###
+        locations.register server, "/rest"
+        debug "register() locations.register server"
+
+        if traces.enabled "rest"
+            server.use (req, res, next) ->
+                debug "STOP  #{req.method} #{req.url}"
+                return next()
+
+        return this
+    getAll: (req, res, next) ->
+        res.send({})
+        if next then next err

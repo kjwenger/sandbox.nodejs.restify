@@ -1,0 +1,40 @@
+###global JSON,module,require,console,process###
+
+###*
+Central object holding all reused code for unification (DRY).
+
+@class utils
+@requires constants
+@module module
+@date November 28, 2015
+@author <a href="mailto:kjwenger@yahoo.com">Klaus Wenger</a>
+###
+
+###*
+@member utils
+@property {Boolean} [debug=false]
+
+Flag enabling or disabling tracing information to the console.
+###
+module.debug = module.parent.debug
+
+debug     = require("debug")("utils")
+exec      = require("child_process").exec
+constants = require "./constants"  # Require all reusable constants for consistency
+
+module.exports =
+    execute: (method, cmdline, callback) ->
+        debug "#{method} #{cmdline} executing ..."
+        err, stdout, stderr = exec! cmdline
+        if err is null
+            if stdout then debug "#{method} #{cmdline} stdout: #{stdout}"
+            if stderr then debug "#{method} #{cmdline} stderr: #{stderr}"
+        else
+            debug "#{method} #{cmdline} failed: #{err}"
+        if callback then callback err else err
+    ###*
+    Checks if an arguments combination was provided on node command line to turn on debug tracing.
+    @member utils
+    @return {Boolean} <code>true</code> if debug=true was provided as program argument, else <code>false</code>.
+    ###
+    isDebug: () -> process.argv.indexOf(constants.DEBUG_IS_ON) > -1

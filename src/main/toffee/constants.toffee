@@ -1,0 +1,71 @@
+###global JSON,module,require,console,process###
+
+###*
+Central object holding all reused constants for unification (DRY).
+
+@class constants
+@module module
+@date November 27, 2015
+@author <a href="mailto:kjwenger@yahoo.com">Klaus Wenger</a>
+###
+
+module.exports =
+    PORT: 8910
+    HOST: "127.0.0.1"
+    HOSTNAME: "localhost"
+    INFINITY: "infinity"
+    PUSH_PORT: 8765
+    ###*
+    Field name typical for holding a count of some kind.
+    @member constants
+    @property {String} [COUNT="count"]
+    ###
+    COUNT: "count"
+    ###*
+    Arguments combination that can be provided on node command line to turn on debug tracing.
+    @member constants
+    @property {String} [DEBUG_IS_ON="debug=true"]
+    ###
+    DEBUG_IS_ON: "debug=true"
+    ###*
+    String representation of the boolean literal <code>true</code>.
+    @member constants
+    @property {String} [TRUE="true"]
+    ###
+    TRUE: "true"
+    ###*
+    String representation of the boolean literal <code>false</code>.
+    @member constants
+    @property {String} [FALSE="false"]
+    ###
+    FALSE: "false"
+    ###*
+    String representation of the logical flag <code>on</code>.
+    @member constants
+    @property {String} [ON="on"]
+    ###
+    ON: "on"
+    ###*
+    String representation of the logical flag <code>off</code>.
+    @member constants
+    @property {String} [OFF="off"]
+    ###
+    OFF: "off"
+    ###*
+    String representation of the integer <code>1</code>.
+    @member constants
+    @property {String} [ONE="1"]
+    ###
+    ONE: "1"
+    ###*
+    String representation of the integer <code>0</code>.
+    @member constants
+    @property {String} [ZERO="0"]
+    ###
+    ZERO: "0"
+    ###*
+    Empty string without characters.
+    @member constants
+    @property {String} [BLANK=""]
+    ###
+    STRING_BLANK: ""

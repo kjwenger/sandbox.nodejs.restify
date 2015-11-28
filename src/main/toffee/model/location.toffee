@@ -1,0 +1,40 @@
+###global JSON,module,require,console,process###
+
+###*
+Model for geographic locations.
+
+@class location
+@date November 28, 2015
+@author <a href="mailto:kjwenger@yahoo.com">Klaus Wenger</a>
+###
+
+debug     = require("debug")("location")
+constants = require "../constants"
+
+module.exports =
+    model           :
+        countryCode : constants.STRING_BLANK
+        regionCode  : constants.STRING_BLANK
+        postalCode  : constants.STRING_BLANK
+        city        : constants.STRING_BLANK
+        street      : constants.STRING_BLANK
+        number      : constants.STRING_BLANK
+    schema          :
+        countryCode :
+            type    : String
+            required: true
+        regionCode  :
+            type    : String
+            required: true
+        postalCode  :
+            type    : String
+            required: true
+        city        :
+            type    : String
+            required: true
+        street      :
+            type    : String
+            required: true
+        number      :
+            type    : String
+            required: true

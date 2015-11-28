@@ -1,0 +1,63 @@
+{
+  "name": "sandbox.nodejs.restify",
+  "version": "0.0.1",
+  "description": "Node.js Restify RESTful Web Services",
+  "main": "app.js",
+  "scripts": {
+    "start": "node target/app/app.js",
+    "grunt": "node node_modules/grunt-cli/bin/grunt",
+    "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
+  },
+  "keywords": [
+    "Node.js",
+    "Eclipse",
+    "Nodeclipse"
+  ],
+  "author": "Klaus Wenger",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "latest",
+    "mongodb": "latest",
+    "mongoose": "latest",
+    "restify": "latest",
+    "restify-mongoose": "latest"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-cli": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-coffee": "latest",
+    "grunt-contrib-commands": "latest",
+    "grunt-execute": "latest",
+    "gruntify-eslint": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-jsduck": "latest",
+    "grunt-jasmine-node": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-mkdir": "latest",
+    "grunt-easy-mongo-fixture": "latest",
+    "grunt-mongodb-fixtures": "latest",
+    "grunt-open": "latest",
+    "load-grunt-tasks": "latest",
+    "time-grunt": "latest",
+    "eslint": "latest",
+    "jslint": "latest",
+    "jshint": "latest",
+    "jsonlint": "latest",
+    "toffee-script": "latest",
+    "jasmine-node": "latest",
+    "istanbul": "latest",
+    "proxyquire": "latest",
+    "yo": "latest",
+    "generator-baboon": "latest"
+  },
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kjwenger/sandbox.nodejs.restify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kjwenger/sandbox.nodejs.restify/issues"
+  },
+  "homepage": "https://github.com/kjwenger/sandbox.nodejs.restify"
+}

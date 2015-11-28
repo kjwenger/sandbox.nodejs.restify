@@ -1,0 +1,18 @@
+###global JSON,module,require,console,process###
+
+###*
+Model for geographic addresses.
+
+@class address
+@requires location
+@date November 28, 2015
+@author <a href="mailto:kjwenger@yahoo.com">Klaus Wenger</a>
+###
+
+debug     = require("debug")("address")
+constants = require "../constants"
+location  = require "./location"
+
+module.exports =
+    additional: constants.STRING_BLANK,
+    location  : location
