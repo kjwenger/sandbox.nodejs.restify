@@ -20,7 +20,8 @@
     "mongodb": "latest",
     "mongoose": "latest",
     "restify": "latest",
-    "restify-mongoose": "latest"
+    "restify-mongoose": "latest",
+    "restify-oauth2": "latest"
   },
   "devDependencies": {
     "grunt": "latest",

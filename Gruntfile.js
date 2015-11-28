@@ -17,6 +17,11 @@ module.exports = function (grunt) {
         clean: {
             test_databases: [
                 '<%= yeoman.databases.dbpath %>'
+            ],
+            target: [
+                'target/app/*.js',
+                'target/app/model/',
+                'target/app/rest/'
             ]
         },
         mkdir: {
@@ -69,30 +74,6 @@ module.exports = function (grunt) {
             }
         },
         execute: {
-            toffee_constants: {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/app',
-                        '--compile',
-                        'src/main/toffee/constants.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
-            toffee_utils: {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/app',
-                        '--compile',
-                        'src/main/toffee/utils.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
             toffee_app: {
                 options: {
                     args: [
@@ -101,30 +82,6 @@ module.exports = function (grunt) {
                         'target/app',
                         '--compile',
                         'src/main/toffee/app.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
-            toffee_location: {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/app/model',
-                        '--compile',
-                        'src/main/toffee/model/location.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
-            toffee_address: {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/app/model',
-                        '--compile',
-                        'src/main/toffee/model/address.toffee'
                     ]
                 },
                 src: toffee_script

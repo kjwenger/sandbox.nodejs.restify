@@ -13,10 +13,12 @@ Application rooting in Restify allowing for further servers/services to be added
 ###
 
 debug     = require("debug")("app")
-constants = require "./constants"  # Require all reusable constants for consistency
-utils     = require "./utils"      # Require all reusable code for consistency
-restify   = require "restify"      # require the RESTful Web Services framework
-rest      = require "./rest/rest"  # require the root of all RESTful Web Services
+                                  # Require all reusable constants for consistency
+constants = require "../../../sandbox.nodejs/target/app/constants"
+                                  # Require all reusable code for consistency
+utils     = require "../../../sandbox.nodejs/target/app/utils"
+restify   = require "restify"     # require the RESTful Web Services framework
+rest      = require "./rest/rest" # require the root of all RESTful Web Services
 
 ###*
 @member app

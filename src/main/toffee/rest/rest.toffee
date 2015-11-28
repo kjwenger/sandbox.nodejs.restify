@@ -18,7 +18,7 @@ Flag enabling or disabling tracing information to the console.
 traces    = require "debug"
 debug     = require("debug")("rest")
 mongoose  = require "mongoose"
-constants = require "../constants"
+constants = require "../../../../sandbox.nodejs/target/app/constants"
 locations = require "./rest_locations"
 
 module.exports =

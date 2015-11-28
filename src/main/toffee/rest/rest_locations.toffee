@@ -9,8 +9,8 @@ Root of all RESTful Web Service scopes for locations CRUDE.
 ###
 
 debug           = require("debug")("rest_locations")
-constants       = require "../constants"
-location        = require "../model/location"
+constants       = require "../../../../sandbox.nodejs/target/app/constants"
+location        = require "../../../../sandbox.nodejs/target/app/model/location"
 restify         = require "restify"
 restifyMongoose = require "restify-mongoose"
 mongoose        = require "mongoose"
@@ -56,7 +56,7 @@ module.exports  =
         Location = mongoose.model("locations", Schema)
         locations = restifyMongoose(Location)
 
-        this.mock(Location)
+#        this.mock(Location)
 
         ###register all handlers for all scopes and supported HTTP methods###
         server.get   path + "/locations",     locations.query()
