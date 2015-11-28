@@ -54,7 +54,8 @@ module.exports  =
 
         Schema = new mongoose.Schema(location.schema)
         Location = mongoose.model("locations", Schema)
-        locations = restifyMongoose(Location)
+        options = baseUrl: 'http://localhost'
+        locations = restifyMongoose(Location, options)
 
 #        this.mock(Location)
 

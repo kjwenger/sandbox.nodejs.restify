@@ -58,5 +58,11 @@ module.exports =
 
         return this
     getAll: (req, res, next) ->
-        res.send({})
+        res.send(
+            _links:
+                self:
+                    href: "/rest"
+                locations:
+                    href: "/rest/locations"
+        )
         if next then next err

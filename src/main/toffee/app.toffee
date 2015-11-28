@@ -7,9 +7,8 @@ Application rooting in Restify allowing for further servers/services to be added
 @module module
 @module restify
 @see <a href="http://nodejs.org/api/modules.html">Node.JS Modules</a>
-@date March 5, 2014
-@author <a href="mailto:jgupta_ext@implen.com">Jatin Gupta</a>
-@author <a href="mailto:kwenger@implen.com">Klaus Wenger</a>
+@date November 27, 2015
+@author <a href="mailto:kjwenger@yahoo.com">Klaus Wenger</a>
 ###
 
 debug     = require("debug")("app")
@@ -19,18 +18,6 @@ constants = require "../../../sandbox.nodejs/target/app/constants"
 utils     = require "../../../sandbox.nodejs/target/app/utils"
 restify   = require "restify"     # require the RESTful Web Services framework
 rest      = require "./rest/rest" # require the root of all RESTful Web Services
-
-###*
-@member app
-@property {Boolean} [debug=false]
-@example node app/app.js debug=true
-@see utils.isDebug()
-
-Flag enabling or disabling tracing information to the console. This flag
-can be set by passing the command line arguments debug=true into
-the node executable at start time.
-###
-module.debug = utils.isDebug()
 
 # instantiate the server framework and initialize it
 server = restify.createServer name: 'sandbox.nodejs.restify'
