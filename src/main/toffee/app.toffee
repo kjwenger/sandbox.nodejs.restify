@@ -49,8 +49,9 @@ server.post "/shutdown", (req, res) ->
     debug 'server.post("/shutdown").callback()'
     res.send success: true
     setTimeout (() ->
+        debug 'server.post("/shutdown").callback().setTimeout()'
         server.close()
-        process.exit 0), 2000
+        process.exit 0), 100
 
 # start dispatch loop
 try

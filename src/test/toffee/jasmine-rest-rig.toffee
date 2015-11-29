@@ -21,6 +21,7 @@ module.exports =
         runs () ->
             err = restRig.call! "post", "/shutdown", null, null
             debug "shutdown() err=#{err}"
+            restRig.client.close()
         waitsFor callback, "rest-rig.startup node never shut down", 4000
         runs () ->
             expect(module.exports.isStarted() or restRig.stopped).toBeTruthy()
