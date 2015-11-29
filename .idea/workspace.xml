@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37f106f7-67be-4305-a88e-18542b23d2c9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/toffee/jasmine-rest-rig.toffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/toffee/jasmine-rig.toffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/toffee/rest-rig.toffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/specs/rest-spec.toffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/toffee/rig.toffee" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/app/.eslintrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/app/.jshintrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/app/.jslintrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gruntfile.js" afterPath="$PROJECT_DIR$/Gruntfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/toffee/app.toffee" afterPath="$PROJECT_DIR$/src/main/toffee/app.toffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -32,6 +30,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="Gruntfile.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Gruntfile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7083333">
+              <caret line="176" column="15" selection-start-line="176" selection-start-column="15" selection-end-line="176" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="rest-spec.toffee" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/specs/rest-spec.toffee">
           <provider selected="true" editor-type-id="text-editor">
@@ -42,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jasmine-rest-rig.toffee" pinned="false" current-in-tab="true">
+      <file leaf-file-name="jasmine-rest-rig.toffee" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/toffee/jasmine-rest-rig.toffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4525463">
+            <state vertical-scroll-proportion="0.0">
               <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
@@ -67,7 +75,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="119" column="49" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
-              <folding />
+              <folding>
+                <marker date="1448801935829" expanded="true" signature="3984:4194" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -112,13 +122,13 @@
         <option value="$PROJECT_DIR$/src/main/toffee/rest/rest_locations.toffee" />
         <option value="$PROJECT_DIR$/src/test/toffee/rig.toffee" />
         <option value="$PROJECT_DIR$/src/test/toffee/jasmine-rig.toffee" />
-        <option value="$PROJECT_DIR$/Gruntfile.js" />
         <option value="$PROJECT_DIR$/target/test/jasmine-rest-rig.js" />
         <option value="$PROJECT_DIR$/src/test/toffee/jasmine-rest-rig.toffee" />
         <option value="$PROJECT_DIR$/src/main/toffee/app.toffee" />
         <option value="$PROJECT_DIR$/src/test/toffee/rest-rig.toffee" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/test/specs/rest-spec.toffee" />
+        <option value="$PROJECT_DIR$/Gruntfile.js" />
       </list>
     </option>
   </component>
@@ -269,7 +279,7 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../sandbox.nodejs.express" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../sandbox.nodejs" />
     <property name="FullScreen" value="false" />
     <property name="js.eslint.nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="js.eslint.eslintPackage" value="" />
@@ -432,7 +442,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="272" column="16" selection-start-line="272" selection-start-column="16" selection-end-line="272" selection-end-column="16" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -466,7 +476,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="67" column="13" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -506,7 +516,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -633,16 +643,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gruntfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="272" column="16" selection-start-line="272" selection-start-column="16" selection-end-line="272" selection-end-column="16" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node-sleep/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -741,7 +741,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="119" column="49" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
-          <folding />
+          <folding>
+            <marker date="1448801935829" expanded="true" signature="3984:4194" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -755,8 +757,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/toffee/jasmine-rest-rig.toffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4525463">
+        <state vertical-scroll-proportion="0.0">
           <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gruntfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7083333">
+          <caret line="176" column="15" selection-start-line="176" selection-start-column="15" selection-end-line="176" selection-end-column="15" />
           <folding />
         </state>
       </provider>

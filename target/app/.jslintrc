@@ -1,0 +1,7 @@
+{
+    "indent" : 4    ,
+    "sloppy" : true ,
+    "node"   : true ,
+    "nomen"  : true ,
+    "maxerr" : 10000
+}

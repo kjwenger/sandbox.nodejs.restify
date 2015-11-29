@@ -44,6 +44,20 @@ module.exports = function (grunt) {
                 cmd: 'bbs mongo stop 2.0.49'
             }
         },
+        toffee: {
+            options: {
+                bare: true,
+                join: false,
+                sourceMap: true
+            },
+            'target/app/rest/rest.js': 'src/main/toffee/rest/rest.toffee',
+            'target/app/rest/rest_locations.js': 'src/main/toffee/rest/rest_locations.toffee',
+            'target/test/rig.js': 'src/test/toffee/rig.toffee',
+            'target/test/rest-rig.js': 'src/test/toffee/rest-rig.toffee',
+            'target/test/jasmine-rig.js': 'src/test/toffee/jasmine-rig.toffee',
+            'target/test/jasmine-rest-rig.js': 'src/test/toffee/jasmine-rest-rig.toffee',
+            'target/test/specs/rest-spec.js': 'src/test/specs/rest-spec.toffee'
+        },
         easy_mongo_fixture: {
             load: {
                 options: {
@@ -74,104 +88,6 @@ module.exports = function (grunt) {
                     'locations'
                 ],
                 action: 'save'
-            }
-        },
-        execute: {
-            toffee_app: {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/app',
-                        '--compile',
-                        'src/main/toffee/app.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
-            toffee_rest: {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/app/rest',
-                        '--compile',
-                        'src/main/toffee/rest/rest.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
-            toffee_rest_locations: {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/app/rest',
-                        '--compile',
-                        'src/main/toffee/rest/rest_locations.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
-            'toffee_rig': {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/test',
-                        '--compile',
-                        'src/test/toffee/rig.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
-            'toffee_rest-rig': {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/test',
-                        '--compile',
-                        'src/test/toffee/rest-rig.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
-            'toffee_jasmine-rig': {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/test',
-                        '--compile',
-                        'src/test/toffee/jasmine-rig.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
-            'toffee_jasmine-rest-rig': {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/test',
-                        '--compile',
-                        'src/test/toffee/jasmine-rest-rig.toffee'
-                    ]
-                },
-                src: toffee_script
-            },
-            'toffee_rest-spec': {
-                options: {
-                    args: [
-                        '--bare',
-                        '--output',
-                        'target/test/specs',
-                        '--compile',
-                        'src/test/specs/rest-spec.toffee'
-                    ]
-                },
-                src: toffee_script
             }
         },
         eslint: {
@@ -232,6 +148,7 @@ module.exports = function (grunt) {
     });
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-coffee');
+    grunt.loadNpmTasks('grunt-toffee');
     grunt.loadNpmTasks('grunt-contrib-commands');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -257,7 +174,7 @@ module.exports = function (grunt) {
         'easy_mongo_fixture:save'
     ]);
     grunt.registerTask('compile', [
-        'execute'
+        'toffee'
     ]);
     grunt.registerTask('lint', [
         'jshint:all'
