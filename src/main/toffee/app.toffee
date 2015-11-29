@@ -27,6 +27,7 @@ server.use(restify.acceptParser(server.acceptable))
 server.use restify.queryParser()  # parse request query properties out of URL query string
 server.use restify.bodyParser()   # parse JSON out of data of HTTP request
 server.use restify.CORS()         # cross-origin resource sharing
+server.pre restify.pre.userAgentConnection()
 server.on "MethodNotAllowed", (req, res) ->
     debug "server.on('MethodNotAllowed') req.method=#{req.method}"
     if req.method.toUpperCase() is "OPTIONS"
@@ -46,8 +47,10 @@ rest.register server               # pass server to sub-server and RESTful Web S
 # allow shutting down the server remotely
 server.post "/shutdown", (req, res) ->
     debug 'server.post("/shutdown").callback()'
-    res.send({success: true})
-    setTimeout () -> process.exit 0, 1000
+    res.send success: true
+    setTimeout (() ->
+        server.close()
+        process.exit 0), 2000
 
 # start dispatch loop
 try

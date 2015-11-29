@@ -50,6 +50,7 @@ module.exports = function (grunt) {
                 join: false,
                 sourceMap: true
             },
+            'target/app/app.js': 'src/main/toffee/app.toffee',
             'target/app/rest/rest.js': 'src/main/toffee/rest/rest.toffee',
             'target/app/rest/rest_locations.js': 'src/main/toffee/rest/rest_locations.toffee',
             'target/test/rig.js': 'src/test/toffee/rig.toffee',

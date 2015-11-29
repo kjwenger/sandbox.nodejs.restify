@@ -1,5 +1,6 @@
 /target/app/rest/
 /target/app/**/*.js
+/target/app/**/*.map
 /target/doc/
 /target/test/
 /node_modules/

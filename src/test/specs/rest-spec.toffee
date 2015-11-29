@@ -18,7 +18,7 @@ describe "rest", () ->
     it "should wait for startup", () ->
         debug "should wait for startup"
         waits 3000
-    it "should get /rest", () ->
+    xit "should get /rest", () ->
         debug "should get /rest"
         object = null
         runs () ->
@@ -32,10 +32,10 @@ describe "rest", () ->
         runs () ->
             debug "should get /rest ... runs"
             expect(object).toBeTruthy()
-    it "should wait for get /rest again", () ->
+    xit "should wait for get /rest again", () ->
         debug "should wait for get /rest again"
         waits 3000
-    it "should get /rest again", () ->
+    xit "should get /rest again", () ->
         debug "should get /rest again"
         object = null
         runs () ->
@@ -49,11 +49,11 @@ describe "rest", () ->
         runs () ->
             debug "should get /rest again ... runs"
             expect(object).toBeTruthy()
-    it "should wait for get /rest again", () ->
+    xit "should wait for get /rest again", () ->
         debug "should wait for get /rest again"
         waits 3000
-#    it "should shut down", () ->
-#        runs () ->
-#            debug "should shut down ... runs"
-#            jasmineRestRig.shutdown!
-#            debug "should shut down ... ran"
+    it "should shut down", () ->
+        runs () ->
+            debug "should shut down ... runs"
+            jasmineRestRig.shutdown!
+            debug "should shut down ... ran"
