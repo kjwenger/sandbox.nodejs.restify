@@ -57,7 +57,8 @@ module.exports = function (grunt) {
             'target/test/rest-rig.js': 'src/test/toffee/rest-rig.toffee',
             'target/test/jasmine-rig.js': 'src/test/toffee/jasmine-rig.toffee',
             'target/test/jasmine-rest-rig.js': 'src/test/toffee/jasmine-rest-rig.toffee',
-            'target/test/specs/rest-spec.js': 'src/test/specs/rest-spec.toffee'
+            'target/test/specs/rest-spec.js': 'src/test/specs/rest-spec.toffee',
+            'target/test/specs/rest_locations-spec.js': 'src/test/specs/rest_locations-spec.toffee'
         },
         easy_mongo_fixture: {
             load: {

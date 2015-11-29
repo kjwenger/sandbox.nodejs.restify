@@ -1,0 +1,59 @@
+debug          = require("debug")("rest_locations-spec")
+jasmineRestRig = require "../jasmine-rest-rig"
+debug "jasmineRestRig=#{jasmineRestRig}"
+
+describe "rest_locations", () ->
+    jasmineRestRig.setStarted(false)
+    it "possibly killing node", () ->
+        runs () ->
+            debug "possibly killing node ... runs"
+            jasmineRestRig.kill()
+    it "should wait for kill", () ->
+        debug "should wait for kill"
+        waits 3000
+    it "should start up", () ->
+        runs () ->
+            debug "should start up ... runs"
+            jasmineRestRig.startup()
+    it "should wait for startup", () ->
+        debug "should wait for startup"
+        waits 3000
+    it "should get /rest/locations", () ->
+        debug "should get /rest/locations"
+        object = null
+        runs () ->
+            debug "should get /rest/locations ... runs"
+            err, req, res, obj = jasmineRestRig.call! "get", "/rest/locations", "", null
+            object = obj
+            debug "should get /rest/locations ... runs: object=#{object}"
+        waitsFor () ->
+#            debug "should get /rest/locations ... waits for"
+            object
+        runs () ->
+            debug "should get /rest/locations ... runs"
+            expect(object).toBeTruthy()
+    it "should wait for get /rest/locations again", () ->
+        debug "should wait for get /rest/locations again"
+        waits 3000
+    it "should get /rest/locations again", () ->
+        debug "should get /rest/locations again"
+        object = null
+        runs () ->
+            debug "should get /rest/locations again ... runs"
+            err, req, res, obj = jasmineRestRig.call! "get", "/rest/locations", "", null
+            object = obj
+            debug "should get /rest/locations again ... runs: object=#{object}"
+        waitsFor () ->
+#            debug "should get /rest/locations again ... waits for"
+            object
+        runs () ->
+            debug "should get /rest/locations again ... runs"
+            expect(object).toBeTruthy()
+    it "should wait for get /rest/locations again", () ->
+        debug "should wait for get /rest/locations again"
+        waits 3000
+    it "should shut down", () ->
+        runs () ->
+            debug "should shut down ... runs"
+            jasmineRestRig.shutdown!
+            debug "should shut down ... ran"
