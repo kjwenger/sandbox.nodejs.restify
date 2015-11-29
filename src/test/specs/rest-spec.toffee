@@ -1,0 +1,59 @@
+debug          = require("debug")("rest-spec")
+jasmineRestRig = require "../jasmine-rest-rig"
+debug "jasmineRestRig=#{jasmineRestRig}"
+
+describe "rest", () ->
+    jasmineRestRig.setStarted(false)
+    it "possibly killing node", () ->
+        runs () ->
+            debug "possibly killing node ... runs"
+            jasmineRestRig.kill()
+    it "should wait for kill", () ->
+        debug "should wait for kill"
+        waits 3000
+    it "should start up", () ->
+        runs () ->
+            debug "should start up ... runs"
+            jasmineRestRig.startup()
+    it "should wait for startup", () ->
+        debug "should wait for startup"
+        waits 3000
+    it "should get /rest", () ->
+        debug "should get /rest"
+        object = null
+        runs () ->
+            debug "should get /rest ... runs"
+            err, req, res, obj = jasmineRestRig.call! "get", "/rest", "", null
+            object = obj
+            debug "should get /rest ... runs: object=#{object}"
+        waitsFor () ->
+#            debug "should get /rest ... waits for"
+            object
+        runs () ->
+            debug "should get /rest ... runs"
+            expect(object).toBeTruthy()
+    it "should wait for get /rest again", () ->
+        debug "should wait for get /rest again"
+        waits 3000
+    it "should get /rest again", () ->
+        debug "should get /rest again"
+        object = null
+        runs () ->
+            debug "should get /rest again ... runs"
+            err, req, res, obj = jasmineRestRig.call! "get", "/rest", "", null
+            object = obj
+            debug "should get /rest again ... runs: object=#{object}"
+        waitsFor () ->
+#            debug "should get /rest again ... waits for"
+            object
+        runs () ->
+            debug "should get /rest again ... runs"
+            expect(object).toBeTruthy()
+    it "should wait for get /rest again", () ->
+        debug "should wait for get /rest again"
+        waits 3000
+#    it "should shut down", () ->
+#        runs () ->
+#            debug "should shut down ... runs"
+#            jasmineRestRig.shutdown!
+#            debug "should shut down ... ran"

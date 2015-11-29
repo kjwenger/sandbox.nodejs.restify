@@ -1,0 +1,138 @@
+debug          = require("debug")("rest-rig")
+child_process  = require "child_process"
+restify        = require "restify"
+
+module.exports =
+    ###* Command line arguments for the Node.js app to start. ###
+    args: []
+    ###* Assume Node.js app is already started and this.startup() need be skipped. ###
+    started: true
+    ###* Check if Node.js app is already started and this.startup() need be skipped. ###
+    isStarted: () ->
+        started = this.started or process.argv.indexOf("started=true") > -1 #TODO Use constants
+        started
+    ###* Set that Node.js app is already started and this.startup() need be skipped. ###
+    setStarted: (newStarted) ->
+        this.started = newStarted
+    ###* Flag showing the Node.js app has (been) finished. ###
+    stopped: false
+    ###* The process instance of the Node.js binary running the app. ###
+    node: null
+    ###* The Restify client to send REST calls to the Node.js app. ###
+    client: null
+    ###* The Restify client type to send either plain HTTP, String, or JSON requests to the Node.js app. ###
+    clientType: "Json"
+    ###* Set the Restify client type to send either plain HTTP, String, or JSON requests to the Node.js app. ###
+    setClientType: (newClientType) ->
+        this.clientType = newClientType
+    ###*
+    Kills a node process with the given application if it is running.
+    * @member rest-rig
+    * @param {String}  [appname=module.appname or "target/app/app"] (optional) The name of the node app to kill.
+    ###
+    kill: (appname) ->
+        debug "kill() appname=#{appname}"
+        appname = appname or module.appname or "target/app/app"
+        debug "kill() appname=#{appname}"
+        child_process.exec "pkill -9 -f 'node #{appname}'"
+    ###*
+    Spawns the node process with an application.
+    * @member rest-rig
+    * @param {String}  [appname=module.appname or "target/app/app"] (optional) The name of the node app to start.
+    * @param {Array}   [args=[]]    (optional) Array of additional arguments for the start of node.
+    * @param {Boolean} [kill=false] (optional) Flag to possibly kill the app if it is still running.
+    ###
+    spawnNode: (appname, args, kill) ->
+        debug "spawnNode() appname=#{appname}"
+        ###* get Node.JS app file name from parameter, field, or static literal ###
+        appname = appname or module.appname or "target/app/app"
+        debug "spawnNode() appname=#{appname}"
+        ###* ensure there was no lingering test instance ###
+        if kill then this.kill appname
+        ###* spawn the node process and keep it in exported field for possible reuse ###
+        args = args or this.args or []
+        argv = [ appname, "debug=#{module.debug}" ].concat args
+        debug "spawnNode() argv=#{JSON.stringify argv}"
+        module.exports.node  = child_process.spawn "node", argv
+        ###* listen to node process how it ends ###
+        module.exports.node.on "close", (code, signal) ->
+            module.exports.stopped = true
+            ###* UNIX processes should not have ended by signals in our tests ###
+            if signal
+                expect(signal).toBe 0
+            ###* return codes of UNIX processes should be 0 or else something failed ###
+            if typeof code == "number"
+                expect(code).toBe 0
+        ###* stdin and stdout of the node process should be captured for composite logging ###
+        yellow = `'\033[0;33m'`
+        green = `'\033[0;32m'`
+        red = `'\033[0;31m'`
+        normal = `'\033[0;39m'`
+        module.exports.node.stdout.on "data", (data) ->
+            process.stdout.write "#{green}#{data}#{normal}"
+        module.exports.node.stderr.on "data", (data) ->
+            process.stdout.write "#{yellow}#{data}#{normal}"
+    ###*
+    Creates a client for issuing the HTTP requests needed for REST testing
+    and exports it as field for reuse. Also adds two new supported methods
+    "COPY" and "MOVE" to the REST client.
+    ###
+    createClient: () ->
+        module.exports.client = restify["create#{this.clientType}Client"]
+            url: "http://127.0.0.1:8910",
+            version: "*"
+        debug "createClient() module.exports.client=#{module.exports.client}"
+    ###*
+    Starts the node process with an application if needed and an HTTP client to issue REST requests.
+    * @member rest-rig
+    * @param {String}  [appname=module.appname or "target/app/app"] (optional) The name of the node app to start.
+    * @param {Array}   [args=[]]    (optional) Array of additional arguments for the start of node.
+    * @param {Boolean} [kill=false] (optional) Flag to possibly kill the app if it is still running.
+    ###
+    startup: (appname, args, kill) ->
+        debug "startup() appname=#{appname}"
+        debug "startup() module.exports.isStarted()=#{module.exports.isStarted()}"
+        ###* if the node process to be tested has been started already by caller, don't do so here ###
+        if not module.exports.isStarted()
+            this.spawnNode appname, args, kill
+        ###* a client for issuing the HTTP requests is always needed for REST testing and exported as field for reuse ###
+        this.createClient()
+    ###*
+    Executes the actuall REST call for a given method, a REST scope, an optional URL query string, and optioal body data.
+    * @member rest-rig
+    * @param {String}  [method="GET" or "PUT" or "POST" or "DELETE" or "COPY" or "MOVE"] The method for the REST call.
+    * @param {String}  scope Scope of the REST resource to call. Example: "/rest/sessions.json" ... gets all currently open sessions in the result body as JSON.
+    * @param {String}  query (optional) Optional URL query string to append. Example: "?pretty=On&fields=w_a" turns on pretty formatted JSON and a filter for fields "w", "a" ...
+    * @param           data (optional) The options in string, JSON, or object format depending on the client type.
+    * @param           callback Return request, requirement, data to be handed by function.
+    ###
+    call: (method, scope, query, data, callback) ->
+        query = query or ""
+        path = scope + query
+        debug "call() method=#{method}"
+        debug "call() scope=#{scope}"
+        debug "call() query=#{query}"
+        debug "call() path=#{path}"
+        if module.exports.client
+            debug "call() module.exports.client[method]=#{module.exports.client[method]}"
+            if method in [ "get", "head", "del" ]
+                return module.exports.client[method] path, (err, req, res, data) ->
+                    debug "client.#{method}() err=#{err}"
+                    if callback then callback err, req, res, data
+            #        else if method in [ "move", "copy" ]
+            #            options = module.exports.client._options method.toUpperCase(), path
+            #            return module.exports.client.post options, data, (err, req, res, data) ->
+            #                debug "client.#{method}() path=#{err}"
+            #                if callback then callback err, req, res, data
+            # if method in [ "put", "post" ]
+            return module.exports.client[method] path, data, (err, req, res, data) ->
+                debug "client.#{method}() path=#{err}"
+                if callback then callback err, req, res, data
+        err = 'No client'
+        if callback then callback err, null, null, data
+    ###*
+    Executes REST call "POST, with REST scope "/shutdown", to finish the Node.js app and process.
+    * @member rest-rig
+    ###
+    shutdown: () ->
+        module.exports.client.post "/shutdown", () ->

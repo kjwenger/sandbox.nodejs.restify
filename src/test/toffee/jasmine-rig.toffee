@@ -1,0 +1,2 @@
+debug          = require("debug")("jasmine-rig")
+rig            = require "./rig"

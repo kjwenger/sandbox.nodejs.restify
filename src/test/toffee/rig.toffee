@@ -1,0 +1,3 @@
+debug = require("debug")("rig")
+module.exports =
+    rig: null

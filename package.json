@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node target/app/app.js",
     "grunt": "node node_modules/grunt-cli/bin/grunt",
-    "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
+    "test": "node node_modules/grunt-cli/bin/grunt test"
   },
   "keywords": [
     "Node.js",
@@ -19,9 +19,8 @@
     "debug": "latest",
     "mongodb": "latest",
     "mongoose": "latest",
-    "restify": "latest",
-    "restify-mongoose": "latest",
-    "restify-oauth2": "latest"
+    "restify": "3.x",
+    "restify-mongoose": "latest"
   },
   "devDependencies": {
     "grunt": "latest",

@@ -22,6 +22,9 @@ module.exports = function (grunt) {
                 'target/app/*.js',
                 'target/app/model/',
                 'target/app/rest/'
+            ],
+            p: [
+                '-p/'
             ]
         },
         mkdir: {
@@ -106,6 +109,66 @@ module.exports = function (grunt) {
                         'target/app/rest',
                         '--compile',
                         'src/main/toffee/rest/rest_locations.toffee'
+                    ]
+                },
+                src: toffee_script
+            },
+            'toffee_rig': {
+                options: {
+                    args: [
+                        '--bare',
+                        '--output',
+                        'target/test',
+                        '--compile',
+                        'src/test/toffee/rig.toffee'
+                    ]
+                },
+                src: toffee_script
+            },
+            'toffee_rest-rig': {
+                options: {
+                    args: [
+                        '--bare',
+                        '--output',
+                        'target/test',
+                        '--compile',
+                        'src/test/toffee/rest-rig.toffee'
+                    ]
+                },
+                src: toffee_script
+            },
+            'toffee_jasmine-rig': {
+                options: {
+                    args: [
+                        '--bare',
+                        '--output',
+                        'target/test',
+                        '--compile',
+                        'src/test/toffee/jasmine-rig.toffee'
+                    ]
+                },
+                src: toffee_script
+            },
+            'toffee_jasmine-rest-rig': {
+                options: {
+                    args: [
+                        '--bare',
+                        '--output',
+                        'target/test',
+                        '--compile',
+                        'src/test/toffee/jasmine-rest-rig.toffee'
+                    ]
+                },
+                src: toffee_script
+            },
+            'toffee_rest-spec': {
+                options: {
+                    args: [
+                        '--bare',
+                        '--output',
+                        'target/test/specs',
+                        '--compile',
+                        'src/test/specs/rest-spec.toffee'
                     ]
                 },
                 src: toffee_script
@@ -206,6 +269,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [
         'compile',
         'lint',
-        'test'
+        'test',
+        'clean:p'
     ]);
 };

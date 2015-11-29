@@ -44,9 +44,10 @@ server.on "MethodNotAllowed", (req, res) ->
 rest.register server               # pass server to sub-server and RESTful Web Services for scope handler registration
 
 # allow shutting down the server remotely
-server.post "/shutdown", () ->
+server.post "/shutdown", (req, res) ->
     debug 'server.post("/shutdown").callback()'
-    process.exit 0
+    res.send({success: true})
+    setTimeout () -> process.exit 0, 1000
 
 # start dispatch loop
 try

@@ -1,0 +1,27 @@
+debug          = require("debug")("jasmine-rest-rig")
+child_process  = require "child_process"
+restify        = require "restify"
+restRig        = require "./rest-rig"
+
+module.exports =
+    isStarted:     () -> restRig.isStarted()
+    setStarted:    (newStarted) -> restRig.setStarted newStarted
+    kill:          (appname) ->
+        debug "debug() appname=#{appname}"
+        restRig.kill appname
+    startup:       (appname, args, kill) ->
+        debug "startup() appname=#{appname}"
+        restRig.startup appname, args, kill
+    call:          (method, scope, query, data, callback) ->
+        debug "call() method=#{method}"
+        restRig.call method, scope, query, data, callback
+    shutdown:      (next) ->
+        debug "shutdown() next=#{next}"
+        callback = () -> module.exports.isStarted() or restRig.stopped
+        runs () ->
+            err = restRig.call! "post", "/shutdown", null, null
+            debug "shutdown() err=#{err}"
+        waitsFor callback, "rest-rig.startup node never shut down", 4000
+        runs () ->
+            expect(module.exports.isStarted() or restRig.stopped).toBeTruthy()
+            if not module.exports.isStarted() and not restRig.stopped then restRig.node.kill "SIGKILL"
