@@ -24,7 +24,7 @@ locations = require "./rest_locations"
 module.exports =
     ###*
     Registers all handlers for this scope and all sub-scopes
-    (photometers, spectrometer, ...) for the supported HTTP methods.
+    (locations, addresses, ...) for the supported HTTP methods.
     The given server needs to allow for instance:
     <code>server.get("/scope", function(req, res, next) { res.write("something"); })</code>.
     @member rest
@@ -65,4 +65,4 @@ module.exports =
                 locations:
                     href: "/rest/locations"
         )
-        if next then next err
+        if next then next()
